@@ -53,12 +53,7 @@ export default function App() {
           await schedulePushNotification();
         }}
       />
-      <Button
-        title="Press to schedule a notification (remoto)"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
+      
     </View>
   );
 }
@@ -74,32 +69,6 @@ async function schedulePushNotification() {
   });
 }
 
-/**
- * REMOTO (a notificação é disparada por um agente externo, via Push)
- */
-// Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/dashboard/notifications
-async function sendPushNotification(expoPushToken) {
- 
-  const message = {
-    to: expoPushToken,
-    sound: "default",
-    title: "Remoto via fetch",
-    body: "And here is the body!",
-    data: { data: "goes here" },
-  };
-
-  setTimeout(async () => {
-    await fetch("https://exp.host/--/api/v2/push/send", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
-  }, 3000);
-}
 
 
 async function registerForPushNotificationsAsync() {
